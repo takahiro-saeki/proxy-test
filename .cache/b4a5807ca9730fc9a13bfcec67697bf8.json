@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"./moduleTest.js","dynamic":true}],"generated":{"html":"<html>\n    <head>\n        <title>test</title>\n    </head>\n    <body>\n        <div>test</div>\n        <script src=\"/dist/2e8b92ae1887f321e4437c0ae87c810c.js\"></script>\n    </body>\n</html>\n"},"hash":"ee90343a9a2daa46bccd3025d0e0d05a","cacheData":{}}
