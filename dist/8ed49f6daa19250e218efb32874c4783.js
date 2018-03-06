@@ -71,34 +71,39 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({2:[function(require,module,exports) {
+})({4:[function(require,module,exports) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function propDefaults(defaults) {
-  var handler = {
-    get: function get(obj, prop) {
-      return Reflect.get(obj, prop) || defaults[prop];
-    }
-  };
-  return new Proxy({}, handler);
-}
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-function log() {
-  var isin = 'name' in myObj ? 'is in' : 'is not in';
-  console.log('name = "' + myObj.name + '" (name ' + isin + ' myObj)');
-}
+var objectWillCreate = function objectWillCreate() {
+  return console.log('Object will create');
+};
+var objectDidCreate = function objectDidCreate() {
+  return console.log('Object did create');
+};
+var handler = {
+  construct: function construct(target, args) {
+    objectWillCreate();
+    var result = new (Function.prototype.bind.apply(target, [null].concat(_toConsumableArray(args))))();
+    objectDidCreate();
+    return result;
+  }
+};
 
-var myObj = propDefaults({ name: "noname" });
-myObj.val = { fuck: 'it'
+var target = function target(name, lastname, address) {
+  _classCallCheck(this, target);
 
-  // trying it out
-};log(); // name = "noname" (name is not in myObj)
-myObj.name = 'Bob';
-log(); // name = "Bob" (name is in myObj)
-delete myObj.name;
-log();
-console.log('expand', myObj);
-console.log('expand name', myObj.val);
-},{}],7:[function(require,module,exports) {
+  console.log('Hits constructor');
+  this.name = name;
+  this.lastname = lastname;
+  this.address = address;
+};
+
+var ContactProxy = new Proxy(target, handler);
+
+var contact = new ContactProxy('Foo', 'Bar', 'Baz');
+},{}],6:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -120,7 +125,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59990' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53062' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -221,5 +226,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[7,2])
-//# sourceMappingURL=/dist/5c57d7c2e773b257c80fc55b1d12249a.map
+},{}]},{},[6,4])
+//# sourceMappingURL=/dist/8ed49f6daa19250e218efb32874c4783.map

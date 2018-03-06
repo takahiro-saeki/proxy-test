@@ -1,29 +1,28 @@
 {
+  "name": "proxy-test",
+  "version": "1.0.0",
+  "author": "Takahiro-Saeki <hiroooon69@gmail.com> (https://takahiro-saeki.github.io/my-portfolio/)",
+  "bugs": {
+    "url": "https://github.com/takahiro-saeki/proxy-test/issues"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.40",
     "@babel/core": "^7.0.0-beta.40",
     "@babel/preset-env": "^7.0.0-beta.40",
-    "babel-core": "^6.26.0",
-    "lerna": "^2.9.0"
+    "babel-core": "^6.26.0"
   },
-  "name": "proxy-test",
-  "description": "",
-  "version": "1.0.0",
+  "homepage": "https://github.com/takahiro-saeki/proxy-test#readme",
+  "license": "ISC",
   "main": "sample.js",
-  "scripts": {
-    "start": "parcel index.html"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/takahiro-saeki/proxy-test.git"
   },
-  "author": "Takahiro-Saeki <hiroooon69@gmail.com> (https://takahiro-saeki.github.io/my-portfolio/)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/takahiro-saeki/proxy-test/issues"
-  },
-  "homepage": "https://github.com/takahiro-saeki/proxy-test#readme",
-  "dependencies": {
-    "babel-polyfill": "^6.26.0"
+  "scripts": {
+    "start": "parcel index.html",
+    "start:other": "parcel class.html"
   }
 }

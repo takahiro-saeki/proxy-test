@@ -71,15 +71,103 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({6:[function(require,module,exports) {
-var childModule = 'test';
+})({2:[function(require,module,exports) {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-module.exports = childModule;
-},{}],4:[function(require,module,exports) {
-var childModule = require('./childModule');
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-console.log(childModule);
-},{"./childModule":6}],8:[function(require,module,exports) {
+var App = function () {
+  function App() {
+    _classCallCheck(this, App);
+
+    this.el = document.getElementById('app');
+    this.up = document.getElementById('up');
+    this.down = document.getElementById('down');
+    var target = {};
+    this.handler = {
+      set: function set(target, name, value) {
+        if (value > 10) {
+          console.log('over');
+          return target[name];
+        }
+        if (value < 0) {
+          return target[name];
+        }
+        target[name] = value;
+        return target[name];
+      },
+      get: function get(target, name, value) {
+        return target[name];
+        //this.render()
+      },
+      has: function has(target, name) {
+        console.log('has', { target: target, name: name });
+        console.log('reflect', Reflect.has(target, name));
+        return Reflect.has(target, name);
+      },
+      deleteProperty: function deleteProperty(target, value) {
+        //console.log({target, value})
+        //throw 'you cannot delete by yourself'
+      },
+      isExtensible: function isExtensible(target) {
+        console.log('isExtensible', target);
+        return true;
+      },
+      ownKeys: function ownKeys(target) {
+        console.log('ownKeys', target);
+        return true;
+      }
+    };
+    this.proxy = new Proxy(target, this.handler);
+    this.proxy.num = 5;
+    this.render();
+    this.onClickUp();
+    this.onClickDown();
+  }
+
+  _createClass(App, [{
+    key: 'onClickUp',
+    value: function onClickUp() {
+      var _this = this;
+
+      this.up.onclick = function () {
+        _this.check();
+        console.log('onCLick!');
+        _this.proxy.num = _this.proxy.num + 1;
+        _this.render();
+      };
+    }
+  }, {
+    key: 'onClickDown',
+    value: function onClickDown() {
+      var _this2 = this;
+
+      this.down.onclick = function () {
+        _this2.proxy.num = _this2.proxy.num - 1;
+        _this2.render();
+      };
+    }
+  }, {
+    key: 'check',
+    value: function check() {
+      //Object.getOwnPropertyNames(this.proxy)
+      //Object.isExtensible(this.proxy)
+      //delete this.proxy.num
+      console.log('num' in this.proxy);
+      console.log(this.proxy);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      this.el.innerHTML = '<div>number: ' + this.proxy.num + '</div>';
+    }
+  }]);
+
+  return App;
+}();
+
+new App();
+},{}],10:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -101,7 +189,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '65401' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50421' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -202,5 +290,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[8,4])
-//# sourceMappingURL=/dist/2e8b92ae1887f321e4437c0ae87c810c.map
+},{}]},{},[10,2])
+//# sourceMappingURL=/dist/proxy-test.map
